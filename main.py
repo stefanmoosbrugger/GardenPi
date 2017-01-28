@@ -20,14 +20,14 @@ def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
     # instantiate the sensors
-    ths = sensor.temp_sensor.TempHumiditySensor(1)    # digital port 1
-    #waa = WaterAtomizer(2)         # digital port 2
-    #vra = VentilationRelay(3)      # digital port 3
-    #pra = PumpRelay(4)             # digital port 4
-    #lra = LightRelay(5)            # digital port 5   
+    vra = sensor.ventilation_relay.VentilationRelay(2)  # digital port 2
+    waa = sensor.water_atomizer.WaterAtomizer(3)        # digital port 3
+    ths = sensor.temp_sensor.TempHumiditySensor(4)    	# digital port 4
+    pra = sensor.pump_relay.PumpRelay(5)             	# digital port 5
+    lra = sensor.light_relay.LightRelay(6)            	# digital port 6   
 
-    #sms = SoilMoistureSensor(0)    # analog port 0
-    #sls = LightSensor(1)           # analog port 1
+    sms = sensor.soil_moisture_sensor.SoilMoistureSensor(0)    	# analog port 0
+    sls = sensor.light_sensor.LightSensor(1)           		# analog port 1
 
     # create the rules
     #pump_rule = Rule(pump_lambda, sms, pra)             # activate water pump if sensor value 
@@ -41,7 +41,14 @@ def main():
     # run the GardenPi
     while 1:
         #rp.process()    # process the rules and switch the relays if needed
-        time.sleep(10)       # sleep 10 seconds
+	print ths.get_state()
+	print waa.get_state()
+	print vra.get_state()
+	print pra.get_state()
+	print lra.get_state()
+	print sms.get_state()
+	print sls.get_state()
+        time.sleep(3)       # sleep 10 seconds
 
 if __name__ == "__main__":
     main()

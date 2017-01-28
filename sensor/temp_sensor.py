@@ -1,15 +1,19 @@
 # This file implements the temp. and humidity sensor class.
+import logging, sys
+import grovepi
+import collections
 import sensor
+import time
 
 class TempHumiditySensor(sensor.Sensor):
     def __init__(self,port_number):
         self.port_num = port_number
         self.name = "TempHumiditySensor " + str(self.port_num)
-        grovepi.pinMode(self.port_num, "INPUT")
         self.data = collections.deque(maxlen=50)
 
     def get_state(self):
         try:
+	    time.sleep(0.5)
             val = grovepi.dht(self.port_num,1)
             self.data.append(val)
             logging.debug('Read sensor (%s) value: %s', self.name, val)
