@@ -2,10 +2,7 @@
 # Main purpose is to provide a base class
 # for the different kinds of sensors/actors
 # that are used in the GardenPi project.
-class XX:
-    def __init__(self):
-        print "XX"
-    
+
 class Sensor:
     def __init__(self,port_number):
         self.port_num = port_number
