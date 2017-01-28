@@ -2,6 +2,7 @@
 # Main purpose is to provide a base class
 # for the different kinds of sensors/actors
 # that are used in the GardenPi project.
+import logging, sys
 
 class Sensor:
     def __init__(self,port_number):

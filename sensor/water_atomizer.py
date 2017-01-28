@@ -6,7 +6,7 @@ import logging, sys
 class WaterAtomizer(sensor.Sensor):
     def __init__(self,port_number):
         self.port_num = port_number
-	grovepi.pinMode(self.port_num,"OUTPUT")
+        grovepi.pinMode(self.port_num,"OUTPUT")
         self.name = "WaterAtomizer " + str(self.port_num)
         self.state = 0
 

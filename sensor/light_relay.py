@@ -1,6 +1,7 @@
 # This file implements the light actor class.
 import sensor
 import grovepi 
+import logging, sys
 
 class LightRelay(sensor.Sensor):
     def __init__(self,port_number):

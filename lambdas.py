@@ -1,3 +1,4 @@
+import logging, sys
 
 def pump_lambda(sensor):
     logging.debug('Call to pump_lambda')

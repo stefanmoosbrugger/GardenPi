@@ -1,6 +1,7 @@
 # This file implements the ventilation actor class.
 import sensor
 import grovepi
+import logging, sys
 
 class VentilationRelay(sensor.Sensor):
     def __init__(self,port_number):

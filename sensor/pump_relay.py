@@ -1,6 +1,7 @@
 # This file implements the pump actor class.
 import sensor
 import grovepi
+import logging, sys
 
 class PumpRelay(sensor.Sensor):
     def __init__(self,port_number):
