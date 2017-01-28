@@ -12,9 +12,10 @@ import sensor.water_atomizer
 import sensor.soil_moisture_sensor
 import sensor.ventilation_relay
 
+import rule
 import processor.rule_processor
 
-import lambdas
+from lambdas import *
 
 def main():
     logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
@@ -30,18 +31,18 @@ def main():
     sls = sensor.light_sensor.LightSensor(1)           		# analog port 1
 
     # create the rules
-    pump_rule = Rule(pump_lambda, sms, pra)             # activate water pump if sensor value 
-    light_rule = Rule(light_lambda, [4,23])             # activate light between 4:00 and 23:00
-    ventilation_rule = Rule(ventilation_lambda, [0,2])  # activate ventilation from minute 0 to minute 2
-    atomizer_rule = Rule(atomizer_lambda, ths)          # humidify the air if needed      
+    pump_rule = rule.Rule(pump_lambda, [sms, pra])             # activate water pump if sensor value 
+    light_rule = rule.Rule(light_lambda, [4,23])             # activate light between 4:00 and 23:00
+    ventilation_rule = rule.Rule(ventilation_lambda, [0,2])  # activate ventilation from minute 0 to minute 2
+    atomizer_rule = rule.Rule(atomizer_lambda, [ths])          # humidify the air if needed      
 
     # create processors
-    rp = processor.RuleProcessor([pump_rule, pra], [light_rule, lra], [ventilation_rule, vra], [atomizer_rule, waa])
+    rp = processor.rule_processor.RuleProcessor([pump_rule, pra], [light_rule, lra], [ventilation_rule, vra], [atomizer_rule, waa])
 
     # run the GardenPi
     while 1:
-        #rp.process()    # process the rules and switch the relays if needed
-	    time.sleep(3)       # sleep 10 seconds
+        rp.process()    # process the rules and switch the relays if needed
+	time.sleep(3)       # sleep 10 seconds
 
 if __name__ == "__main__":
     main()
