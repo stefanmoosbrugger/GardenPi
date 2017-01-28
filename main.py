@@ -48,6 +48,7 @@ def main():
 	print lra.get_state()
 	print sms.get_state()
 	print sls.get_state()
+	waa.set_state(not waa.get_state())
         time.sleep(3)       # sleep 10 seconds
 
 if __name__ == "__main__":

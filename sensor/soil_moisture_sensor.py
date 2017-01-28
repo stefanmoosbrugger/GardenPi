@@ -14,7 +14,7 @@ class SoilMoistureSensor(sensor.Sensor):
 
     def get_state(self):
         try:
-	    time.sleep(0.5)
+	    time.sleep(1)
             val = grovepi.analogRead(self.port_num)
             self.data.append(val)
             logging.debug('Read sensor (%s) value: %s', self.name, val)

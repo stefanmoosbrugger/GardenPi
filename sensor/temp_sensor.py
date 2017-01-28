@@ -13,7 +13,7 @@ class TempHumiditySensor(sensor.Sensor):
 
     def get_state(self):
         try:
-	    time.sleep(0.5)
+	    time.sleep(1)
             val = grovepi.dht(self.port_num,1)
             self.data.append(val)
             logging.debug('Read sensor (%s) value: %s', self.name, val)
