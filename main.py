@@ -42,7 +42,7 @@ def main():
     # run the GardenPi
     while 1:
         rp.process()    # process the rules and switch the relays if needed
-	time.sleep(3)       # sleep 10 seconds
+	time.sleep(10)       # sleep 10 seconds
 
 if __name__ == "__main__":
     main()
