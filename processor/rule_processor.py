@@ -1,6 +1,8 @@
+import logging, sys
 
 class RuleProcessor:
     def __init__(self,*rule_relay_pairs):
+        logging.debug('Starting Rule Processor')
         self.rrp = rule_relay_pairs
 
     def process(self):

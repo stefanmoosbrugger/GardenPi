@@ -1,4 +1,10 @@
 import logging, sys
+import time
+import __builtin__
+
+if __builtin__.testmode == True:
+    HIGH = 1
+    LOW = 0
 
 def pump_lambda(sensor):
     logging.debug('Call to pump_lambda')
@@ -25,12 +31,12 @@ def pump_lambda(sensor):
         logging.debug('New pump state: 0')        
         return 0
 
-def light_lambda(time):
+def light_lambda(t):
     logging.debug('Call to light lambda')    
-    start = time[0]
-    end = time[1]
-    logging.debug('From: %s', time[0])
-    logging.debug('To: %s', time[1])    
+    start = t[0]
+    end = t[1]
+    logging.debug('From: %s', t[0])
+    logging.debug('To: %s', t[1])    
     if  time.localtime().tm_hour >= start and time.localtime().tm_hour <= end:
         logging.debug('New light state: 1')
         return 1
@@ -38,13 +44,13 @@ def light_lambda(time):
         logging.debug('New light state: 0')
         return 0
 
-def ventilation_lambda(time):
+def ventilation_lambda(t):
     logging.debug('Call to ventilation lambda')
-    start = time[0]
-    end = time[1]
-    logging.debug('From: %s', time[0])
-    logging.debug('To: %s', time[1])        
-    if  time.localtime().tm_minute >= start and time.localtime().tm_minute <= end:
+    start = t[0]
+    end = t[1]
+    logging.debug('From: %s', t[0])
+    logging.debug('To: %s', t[1])        
+    if  time.localtime().tm_min >= start and time.localtime().tm_min <= end:
         logging.debug('New ventilation state: 1')
         return 1
     else:

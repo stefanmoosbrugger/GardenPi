@@ -4,7 +4,7 @@
 # that are used in the GardenPi project.
 import logging, sys
 
-class Sensor:
+class SensorBase:
     def __init__(self,port_number):
         self.port_num = port_number
         self.name = ""
@@ -18,10 +18,6 @@ class Sensor:
         raise NotImplementedError( "Should have implemented this" ) 
 
     def set_state(self, val):
-        logging.error('Called get_name to base class')
-        raise NotImplementedError( "Should have implemented this" ) 
-
-    def get_name(self):
         logging.error('Called get_name to base class')
         raise NotImplementedError( "Should have implemented this" ) 
 
