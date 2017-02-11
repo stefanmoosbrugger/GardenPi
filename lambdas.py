@@ -10,9 +10,9 @@ def pump_lambda(sensor):
     logging.debug('Call to pump_lambda')
     val = sensor[0].get_state()
     pump_state = -1
-    if sensor[1].get_state() == HIGH:
+    if sensor[1].get_state() == 1:
         pump_state = 1
-    if sensor[1].get_state() == LOW:
+    if sensor[1].get_state() == 0:
         pump_state = 0
 
     logging.debug('Received val: %s', val)
@@ -31,26 +31,28 @@ def pump_lambda(sensor):
         logging.debug('New pump state: 0')        
         return 0
 
-def light_lambda(t):
+def light_lambda(time_pair):
     logging.debug('Call to light lambda')    
-    start = t[0]
-    end = t[1]
-    logging.debug('From: %s', t[0])
-    logging.debug('To: %s', t[1])    
-    if  time.localtime().tm_hour >= start and time.localtime().tm_hour <= end:
+    start = time_pair[0]
+    end = time_pair[1]
+    logging.debug('From: %s', time_pair[0])
+    logging.debug('To: %s', time_pair[1])    
+    t = time.localtime()
+    if  t.tm_hour >= start and t.tm_hour <= end:
         logging.debug('New light state: 1')
         return 1
     else:
         logging.debug('New light state: 0')
         return 0
 
-def ventilation_lambda(t):
+def ventilation_lambda(time_pair):
     logging.debug('Call to ventilation lambda')
-    start = t[0]
-    end = t[1]
-    logging.debug('From: %s', t[0])
-    logging.debug('To: %s', t[1])        
-    if  time.localtime().tm_min >= start and time.localtime().tm_min <= end:
+    start = time_pair[0]
+    end = time_pair[1]
+    logging.debug('From: %s', time_pair[0])
+    logging.debug('To: %s', time_pair[1])        
+    t = time.localtime()
+    if  t.tm_min >= start and t.tm_min <= end:
         logging.debug('New ventilation state: 1')
         return 1
     else:
