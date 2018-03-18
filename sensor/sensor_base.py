@@ -3,6 +3,7 @@
 # for the different kinds of sensors/actors
 # that are used in the GardenPi project.
 import logging, sys
+import random
 
 class SensorBase:
     def __init__(self,port_number):
@@ -26,3 +27,6 @@ class SensorBase:
     
     def get_name(self):
         return self.name
+
+    def get_simple_name(self):
+        return self.simple_name

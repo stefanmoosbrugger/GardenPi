@@ -2,7 +2,7 @@ import logging, sys
 import time
 import __builtin__
 
-if __builtin__.testmode == True:
+if not __builtin__.testmode:
     HIGH = 1
     LOW = 0
 

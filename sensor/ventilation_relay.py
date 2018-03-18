@@ -1,7 +1,9 @@
 # This file implements the ventilation actor class.
 import sensor_base
+import random
 import __builtin__
-import grovepi
+if not __builtin__.testmode:
+    import grovepi
 import logging, sys
 
 class VentilationRelay(sensor_base.SensorBase):
@@ -10,6 +12,7 @@ class VentilationRelay(sensor_base.SensorBase):
         if not __builtin__.testmode:
             grovepi.pinMode(self.port_num, "OUTPUT")
         self.name = "VentilationRelay " + str(self.port_num)
+        self.simple_name = "ventilation"
         self.state = 0
 
     def get_state(self):

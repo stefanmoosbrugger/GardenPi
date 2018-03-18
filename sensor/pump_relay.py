@@ -1,15 +1,17 @@
 # This file implements the pump actor class.
 import sensor_base
-if not testmode:
+import __builtin__
+if not __builtin__.testmode:
     import grovepi
 import logging, sys
 
 class PumpRelay(sensor_base.SensorBase):
     def __init__(self,port_number):
         self.port_num = port_number
-        if not testmode:
+        if not __builtin__.testmode:
             grovepi.pinMode(self.port_num, "OUTPUT")
         self.name = "PumpRelay " + str(self.port_num)
+        self.simple_name = "pump"
         self.state = 0
 
     def get_state(self):
@@ -20,7 +22,7 @@ class PumpRelay(sensor_base.SensorBase):
 
     def set_state(self, val):
         assert val == 1 or val == 0
-        if not testmode:
+        if not __builtin__.testmode:
             if val:
                 grovepi.digitalWrite(self.port_num, 1); 
                 self.state = 1

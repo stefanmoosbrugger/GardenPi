@@ -4,7 +4,7 @@ import logging, sys
 import threading
 import collections
 import time
-if __builtin__.testmode == True:
+if not __builtin__.testmode:
     import grovepi
 
 sys.path.append("./sensor")
@@ -18,7 +18,8 @@ import light_sensor
 import soil_moisture_sensor
 
 import rule_processor
-import web_interface
+import thingspeak_client
+#import web_interface
 
 import lambdas
 import rule
@@ -29,9 +30,10 @@ def rule_processor_thread(rp):
         time.sleep(3)
 
 def main():
-    if not testmode:
+    if __builtin__.testmode:
         logging.warn('!!!!!!TESTMODE ACTIVATED!!!!!!')        
-    logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+    logging.basicConfig(stream=sys.stderr)
+    logging.getLogger().setLevel(logging.DEBUG)
 
     # instantiate the sensors
     vra = ventilation_relay.VentilationRelay(2) # digital port 2
@@ -51,15 +53,14 @@ def main():
 
     # create processors
     rp = rule_processor.RuleProcessor([pump_rule, pra], [light_rule, lra], [ventilation_rule, vra], [atomizer_rule, waa])
-    wi = web_interface.fill_sensor_list([vra, waa, ths, pra, lra, sms, sls])
+    ts = thingspeak_client.TSClient(vra, waa, ths, pra, lra, sms, sls)
+    #wi = web_interface.fill_sensor_list([vra, waa, ths, pra, lra, sms, sls])
 
     # run the GardenPi threads
-    rpt = threading.Thread(target=rule_processor_thread, args=(rp,))
-    rpt.start()
-    threads = [rpt]
-    for t in threads:
-        t.join()
-    time.sleep(1)
+    while 1:
+        rp.process()
+        ts.updateVals()
+        time.sleep(10)
 
 if __name__ == "__main__":
     main()

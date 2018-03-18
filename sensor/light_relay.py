@@ -11,6 +11,7 @@ class LightRelay(sensor_base.SensorBase):
         if not __builtin__.testmode:
             grovepi.pinMode(self.port_num, "OUTPUT")
         self.name = "LightRelay " + str(self.port_num)
+        self.simple_name = "lightrelay"        
         self.state = 0
 
     def get_state(self):
