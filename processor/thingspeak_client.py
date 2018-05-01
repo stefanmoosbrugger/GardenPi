@@ -8,11 +8,11 @@ import json
 class TSClient:
     w_api_key = "INSERT_THINGSPEAK_WRITE_API_KEY"
     r_api_key = "INSERT_THINGSPEAK_READ_API_KEY"
-    channel_key = "INSERT CHANNEL ID"
+    channel = 452770 # INSERT YOUR CHANNEL ID HERE
 
     def __init__(self, *sens):
         self.sensors = sens
-        r = requests.get('https://api.thingspeak.com/channels/'+self.channel_key+'/feeds.json?api_key='+self.r_api_key+'&results=2')
+        r = requests.get('https://api.thingspeak.com/channels/'+str(self.channel)+'/feeds.json?api_key='+self.r_api_key+'&results=2')
         channel = json.loads(r.content)["channel"]
         self.fieldNames = {}
         for key in channel:
