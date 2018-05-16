@@ -65,6 +65,7 @@ def main():
 		except KeyboardInterrupt:
 			raise
 		except:
+			print(sys.exc_info()[0])
 			pass
 
 if __name__ == "__main__":

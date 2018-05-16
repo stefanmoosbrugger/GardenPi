@@ -1,10 +1,22 @@
 import logging, sys
 import time
+import datetime
 import __builtin__
 
 if not __builtin__.testmode:
     HIGH = 1
     LOW = 0
+
+def time_in_range(start, end, x):
+    today = datetime.date.today()
+    start = datetime.datetime.combine(today, start)
+    end = datetime.datetime.combine(today, end)
+    x = datetime.datetime.combine(today, x)
+    if end <= start:
+        end += datetime.timedelta(1)
+    if x <= start:
+        x += datetime.timedelta(1)
+    return start <= x <= end
 
 def pump_lambda(sensor):
     logging.debug('Call to pump_lambda')
@@ -38,7 +50,7 @@ def light_lambda(time_pair):
     logging.debug('From: %s', time_pair[0])
     logging.debug('To: %s', time_pair[1])    
     t = time.localtime()
-    if  t.tm_hour >= start and t.tm_hour <= end:
+    if time_in_range(datetime.time(start,0,0), datetime.time(end,0,0), datetime.time(t.tm_hour, 0, 0)):
         logging.debug('New light state: 1')
         return 1
     else:

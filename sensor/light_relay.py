@@ -29,4 +29,4 @@ class LightRelay(sensor_base.SensorBase):
             else:
                 grovepi.digitalWrite(self.port_num, 0); 
                 self.state = 0
-        logging.debug('Set val to actor (%si, port %s): %s', self.name, self.port_num, self.state)
+        logging.debug('Set val to actor (%s, port %s): %s', self.name, self.port_num, self.state)
